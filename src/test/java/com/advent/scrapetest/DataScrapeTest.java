@@ -59,4 +59,9 @@ class DataScrapeTest {
 	 * by the business logic of the application.
 	 * 
 	 */
+	
+	@Test
+	void testValidData(TestInfo test) {
+		
+	}
 }
