@@ -1,9 +1,9 @@
 package com.advent.exceptions;
 
-public class FailureToFindDataException extends RuntimeException{
+public class FailedToFindDataException extends RuntimeException{
 	private static final long serialVersionUID = 1894139286440018214L;
 
-	public FailureToFindDataException(String message) {
+	public FailedToFindDataException(String message) {
 		super(message);
 	}
 }
