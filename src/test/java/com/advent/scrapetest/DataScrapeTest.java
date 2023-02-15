@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,23 +26,23 @@ class DataScrapeTest {
 	private final String goodUrl = "https://adventofcode.com/2022/day/1";
 	private final String badUrl = "badUrl";
 	private final String practiceDataPath = "/html/body/main/article/pre/code";
-	
+
 	@BeforeEach
 	void setUp() {
 		dataScrape = new DataScrapeImpl();
 	}
-	
+
 	@AfterEach
 	void tearDown() {
 		dataScrape.quit();
 	}
-	
-	/* URL CHECKS
+
+	/*
+	 * URL CHECKS
 	 * 
-	 * If there is a mistake in the URL and we cannot proceed with
-	 * scraping the data off of the Advent site. We don't want to
-	 * continue for nothing. An incorrect url should throw the in built
-	 * FailedToOpenUrlException
+	 * If there is a mistake in the URL and we cannot proceed with scraping the data
+	 * off of the Advent site. We don't want to continue for nothing. An incorrect
+	 * url should throw the in built FailedToOpenUrlException
 	 * 
 	 */
 	@Disabled("Testing other features")
@@ -51,7 +53,7 @@ class DataScrapeTest {
 		dataScrape.setUrl(goodUrl);
 		assertDoesNotThrow(() -> dataScrape.openProblem());
 	}
-	
+
 	@Disabled("Testing other features")
 	@Tag("URL")
 	@Test
@@ -60,31 +62,40 @@ class DataScrapeTest {
 		dataScrape.setUrl(badUrl);
 		assertThrows(FailedToOpenUrlException.class, () -> dataScrape.openProblem());
 	}
-	
-	/* SAMPLE PUZZLE INPUT
+
+	/*
+	 * SAMPLE PUZZLE INPUT
 	 * 
-	 * The data should be retrieved from the puzzle and ready for use
-	 * by the business logic of the application.
+	 * The data should be retrieved from the puzzle and ready for use by the
+	 * business logic of the application.
 	 * 
 	 */
+	@Disabled("Testing other features")
 	@Tag("Data")
 	@Test
 	void testFindPracticeDataDoesNotThrowException(TestInfo test) {
 		LOGGER.info(test.getDisplayName());
 		dataScrape.setUrl(goodUrl);
 		dataScrape.getUrl();
-		dataScrape.setData(practiceDataPath);
-		assertDoesNotThrow(() -> dataScrape.getProblemData());
+		dataScrape.setExample(practiceDataPath);
+		assertDoesNotThrow(() -> dataScrape.getExampleData());
 	}
-	
+
 	@Tag("Data")
 	@Test
 	void testSuccessfullyRetrievedInputData(TestInfo test) {
 		LOGGER.info(test.getDisplayName());
 		dataScrape.setUrl(goodUrl);
 		dataScrape.getUrl();
-		dataScrape.setData(practiceDataPath);
-		int dataLength = dataScrape.getProblemData().size();
+		dataScrape.setExample(practiceDataPath);
+		int dataLength = dataScrape.getExampleData().size();
 		assertTrue(dataLength > 0);
+	}
+
+	@Tag("Data")
+	@ParameterizedTest
+	@ValueSource(strings = "1000, 2000, 3000, , 4000, , 5000, 6000, , 7000, 8000, 9000, ,10000")
+	void testValidDataFromExampleProblem(TestInfo test, String argument) {
+		LOGGER.info(test.getDisplayName());
 	}
 }
