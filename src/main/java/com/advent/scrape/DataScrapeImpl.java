@@ -18,7 +18,17 @@ public class DataScrapeImpl implements DataScrape {
 	private WebDriver driver;
 	private String url;
 	private String example;
+	private String problemUrl;
 	private String problem;
+	
+	
+	public String getProblemUrl() {
+		return problemUrl;
+	}
+
+	public void setProblemUrl(String problemUrl) {
+		this.problemUrl = problemUrl;
+	}
 
 	public DataScrapeImpl() {
 		driver = new ChromeDriver();
@@ -57,7 +67,19 @@ public class DataScrapeImpl implements DataScrape {
 			driver.get(getUrl());
 			LOGGER.info("Success!");
 		} catch (Exception e){
-			throw new FailedToOpenUrlException("Cannot load given Url");
+			throw new FailedToOpenUrlException("Url path to problem is not loading.");
+		}
+		
+	}
+	
+	@Override
+	public void openProblemData() {
+		try {
+			LOGGER.info("Attempting to open problem data: {}", getProblemUrl());
+			driver.get(getProblemUrl());
+			LOGGER.info("Success!");
+		} catch (Exception e) {
+			throw new FailedToOpenUrlException("Url path to problem data is not loading.");
 		}
 		
 	}

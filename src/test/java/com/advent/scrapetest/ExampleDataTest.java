@@ -48,7 +48,6 @@ class ExampleDataTest {
 	 * business logic of the application.
 	 * 
 	 */
-	@Disabled("Testing other features")
 	@Tag("Data")
 	@Test
 	void testFindPracticeDataDoesNotThrowException(TestInfo test) {
