@@ -20,8 +20,8 @@ import com.advent.exceptions.FailedToOpenUrlException;
 import com.advent.exceptions.FailedToFindDataException;
 import com.advent.scrape.DataScrapeImpl;
 
-class DataScrapeTest {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DataScrapeTest.class);
+class UrlTest {
+	private static final Logger LOGGER = LoggerFactory.getLogger(UrlTest.class);
 	private DataScrapeImpl dataScrape;
 	private final String goodUrl = "https://adventofcode.com/2022/day/1";
 	private final String badUrl = "badUrl";
@@ -97,5 +97,7 @@ class DataScrapeTest {
 	@ValueSource(strings = "1000, 2000, 3000, , 4000, , 5000, 6000, , 7000, 8000, 9000, ,10000")
 	void testValidDataFromExampleProblem(TestInfo test, String argument) {
 		LOGGER.info(test.getDisplayName());
+		dataScrape.setUrl(goodUrl);
+		dataScrape.getUrl();
 	}
 }
