@@ -1,5 +1,6 @@
 package com.advent.scrape;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,7 +77,9 @@ public class DataScrapeImpl implements DataScrape {
 	public void openProblemData() {
 		try {
 			LOGGER.info("Attempting to open problem data: {}", getProblemUrl());
-			driver.get(getProblemUrl());
+			driver.get(getUrl());
+			driver.findElement(By.xpath("/html/body/main/p[1]/a")).click();
+			//TODO - Navigate to opened page.
 			LOGGER.info("Success!");
 		} catch (Exception e) {
 			throw new FailedToOpenUrlException("Url path to problem data is not loading.");
@@ -88,16 +91,23 @@ public class DataScrapeImpl implements DataScrape {
 	 * Each problem is provided with an example input. To test the 
 	 * code this will pull that example input data.
 	 */
+	private List<String> convertTextToList(String text) {
+		List<String> list = new ArrayList<>();
+	
+		String[] elements = text.split("\n");
+		
+		list = Arrays.stream(elements).collect(Collectors.toList());
+		
+		return list;
+	}
+	
 	public List<String> getExampleData() {
 		List<String> exampleProblem = null;
 		try {
 			LOGGER.info("Attempting to extract example data");
 			driver.get(url);
 			String text = driver.findElement(By.xpath(getExample())).getText();
-			String[] elements = text.split("\n");
-			
-			exampleProblem = Arrays.stream(elements).collect(Collectors.toList());
-			
+			exampleProblem = convertTextToList(text);
 			LOGGER.info("Success");
 		} catch(Exception e) {
 			throw new FailedToFindDataException("Could not pull example test data from website");
@@ -106,7 +116,17 @@ public class DataScrapeImpl implements DataScrape {
 	}
 
 	public List<String> getProblemData() {
-		return null;
+		List<String> problemData = null;
+		try {
+			LOGGER.info("Attempting to extract problem data.");
+			driver.get(problemUrl);
+			String text = driver.findElement(By.xpath(getProblem())).getText();
+			problemData = convertTextToList(text);
+		} catch (Exception e) {
+			throw new FailedToFindDataException("Could not pull problem data from problem data page.");
+		}
+		
+		return problemData;
 	}
 	
 	public void quit() {

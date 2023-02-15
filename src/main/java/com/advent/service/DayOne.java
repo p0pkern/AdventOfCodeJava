@@ -25,6 +25,10 @@ public class DayOne implements Solution {
 	@Override
 	public int solveProblem() {
 		goToPage();
+		goToProblemDataPage();
+		List<String> problemData = dataScrape.getProblemData();
+		LOGGER.info("Answer: {}", generateSolution(problemData));
+		return 0;
 	}
 
 	@Override
@@ -76,6 +80,11 @@ public class DayOne implements Solution {
 	public void closePage() {
 		dataScrape.quit();
 
+	}
+
+	@Override
+	public void goToProblemDataPage() {
+		dataScrape.openProblemData();
 	}
 
 }
