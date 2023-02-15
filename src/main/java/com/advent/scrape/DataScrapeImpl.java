@@ -72,7 +72,7 @@ public class DataScrapeImpl implements DataScrape {
 			LOGGER.info("Attempting to extract example data");
 			driver.get(url);
 			String text = driver.findElement(By.xpath(getExample())).getText();
-			String[] elements = text.split(" ");
+			String[] elements = text.split("\n");
 			
 			exampleProblem = Arrays.stream(elements).collect(Collectors.toList());
 			
@@ -80,12 +80,10 @@ public class DataScrapeImpl implements DataScrape {
 		} catch(Exception e) {
 			throw new FailedToFindDataException("Could not pull example test data from website");
 		}
-		
 		return exampleProblem;
 	}
 
 	public List<String> getProblemData() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
