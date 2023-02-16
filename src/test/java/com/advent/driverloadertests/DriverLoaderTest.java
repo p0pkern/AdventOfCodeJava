@@ -2,25 +2,22 @@ package com.advent.driverloadertests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import com.advent.exceptions.InvalidDriverException;
 import com.advent.util.DriverLoader;
 import com.advent.util.DriverLoaderImpl;
 
-@TestInstance(Lifecycle.PER_CLASS)
 class DriverLoaderTest {
 	private DriverLoader driverLoader;
 	
-	@BeforeAll
+	@BeforeEach
 	void setUp() {
 		driverLoader = new DriverLoaderImpl();
 	}
-
+	
 	@Test
 	void testValidDriverChromeDriver() throws InvalidDriverException {
 		assertTrue(driverLoader.loadDriver("Chrome"));
@@ -40,7 +37,7 @@ class DriverLoaderTest {
 		assertEquals("Day 1 - Advent of Code 2022", title);
 	}
 	
-	@AfterAll
+	@AfterEach
 	void tearDown() {
 		if(driverLoader.getDriver() != null) {
 			driverLoader.closeDriver();
