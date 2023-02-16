@@ -17,11 +17,15 @@ import com.advent.exceptions.FailedToOpenUrlException;
 public class DataScrapeImpl implements DataScrape {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataScrapeImpl.class);
 	private WebDriver driver;
-	private String url;
-	private String example;
-	private String problemUrl;
-	private String problem;
+	private String dayUrl;
+	private String exampleDataPath;
+	private String linkToProblemData;
+	private String problemDataPath;
 	
+	public DataScrapeImpl(String dayUrl, String exampleDataPath, String linkToProblemData, String problemDataPath) {
+		driver = new ChromeDriver();
+		
+	}
 	
 	public String getProblemUrl() {
 		return problemUrl;
@@ -29,10 +33,6 @@ public class DataScrapeImpl implements DataScrape {
 
 	public void setProblemUrl(String problemUrl) {
 		this.problemUrl = problemUrl;
-	}
-
-	public DataScrapeImpl() {
-		driver = new ChromeDriver();
 	}
 
 	public String getUrl() {
@@ -122,6 +122,7 @@ public class DataScrapeImpl implements DataScrape {
 			driver.get(problemUrl);
 			String text = driver.findElement(By.xpath(getProblem())).getText();
 			problemData = convertTextToList(text);
+			LOGGER.info("Success!");
 		} catch (Exception e) {
 			throw new FailedToFindDataException("Could not pull problem data from problem data page.");
 		}
