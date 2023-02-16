@@ -1,4 +1,4 @@
-package com.advent.scrape;
+package com.advent.util;
 
 import java.util.List;
 

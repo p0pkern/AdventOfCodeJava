@@ -1,4 +1,4 @@
-package com.advent.scrape;
+package com.advent.util;
 
 public interface AdventPaths {
 	public String getPathToDayProblem();
