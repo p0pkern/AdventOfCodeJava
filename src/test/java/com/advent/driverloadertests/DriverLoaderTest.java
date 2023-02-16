@@ -8,14 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import com.advent.exceptions.InvalidDriverException;
 import com.advent.util.DriverLoader;
-import com.advent.util.DriverLoaderImpl;
 
 class DriverLoaderTest {
 	private DriverLoader driverLoader;
 	
 	@BeforeEach
 	void setUp() {
-		driverLoader = new DriverLoaderImpl();
+		driverLoader = new DriverLoader();
 	}
 	
 	@Test
